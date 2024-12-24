@@ -23,6 +23,31 @@ function Player(name,option,board){
     }
     return {
         select,
-        
     }
+}
+
+function checkWinner(board){
+    console.log("checking the board");
+    for (let i = 0; i < 3; i++) {
+        // checking verticals 
+        console.log(`checking the verticals checking i = ${i}`);
+        if (board[0][i]==board[1][i] && board[1][i]==board[2][i] && board[2][i]==board[0][i]) {
+            console.log(`${board[0][i]} won the game`);
+        }
+        // checking horizontals
+        console.log(`checking the horizontals checking i = ${i}`);
+        
+        if (board[i][0]==board[i][1] && board[i][1]==board[i][2] && board[i][2]==board[i][0]) {
+            console.log(`${board[i][0]} won the game`);
+        }
+    }
+
+    // checking diagonal
+    if (board[0][0]==board[1][1]==board[2][2]) {
+        console.log(`${board[1][1]} won the game`);
+    }
+    if (board[2][0]==board[1][1]==board[2][0]) {
+        console.log(`${board[1][1]} won the game`);
+    }
+    else{console.log("no winner.")}
 }
