@@ -51,5 +51,7 @@ function checkWinner(board){
     if (board[2][0]==board[1][1]==board[2][0]) {
         return board[1][1];
     }
-    else{return 'tie'}
+    else{
+        return 'tie'
+    }
 }
