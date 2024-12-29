@@ -73,25 +73,29 @@ function checkWinner(board) {
   }
 }
 
-function game() {
+(function game() {
     // TODO: make loop with a break condition that 
     // loop should alternates between player1 and player2 objects
-    board = gameBoard()
+    board = gameBoard();
     const playerO = board.Player("O",board.board);
-    const playerX = board.playerX("X",board.board);
+    const playerX = board.Player("X",board.board);
 
-    const PlayerList = [playerX,playerO]
+    const PlayerList = [playerX,playerO];
 
-    for (let index = 0; index < PlayerList.length; index++) {
-        const currentPlayer = PlayerList[index];
-
+    for (let index = 0; index < 9; index++) {
         index = index%2; // alternates between 0 and 1
+        console.log(`index right now is ${index}`);
+        const currentPlayer = PlayerList[index];
+        console.log(board.board);
+        console.log(`its ${currentPlayer.option}'s turn`);
+        xCoordinate = prompt(`X coordinate for ${currentPlayer.option} please`);
+        yCoordinate = prompt(`Y coordinate for ${currentPlayer.option} please`);
+        currentPlayer.select(xCoordinate,yCoordinate);
+
         //break conditions: 
         // board is filled or winner is declared 
-        console.log(`its ${currentPlayer.}`)
-        xCoordinate = prompt("X coordinate please")
-        yCoordinate = prompt("Y coordinate please")
+        console.log(`new index is ${index}`);
         
     }
 
-}
+})();
