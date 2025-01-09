@@ -26,12 +26,22 @@ function gameBoard() {
     }
     return {
       select,
-      option
+      option,
     };
   }
 
+  function checkTie(board) {
+    board.forEach((element) => {
+      element.forEach((currElement) => {
+        if (currElement == null) {
+          return false;
+        }
+      });
+    });
+    return true;
+  }
 
-function checkWinner(board) {
+  function checkWinner(board) {
     console.log("checking the board");
     for (let i = 0; i < 3; i++) {
       // checking verticals
@@ -41,61 +51,62 @@ function checkWinner(board) {
         board[1][i] == board[2][i] &&
         board[2][i] == board[0][i]
       ) {
-        return board[0][i]; // returns x or o that won the game
+        return { keepPlaying: false, winner: board[0][i] }; // returns x or o that won the game
       }
       // checking horizontals
       console.log(`checking the horizontals checking i = ${i}`);
-  
+
       if (
         board[i][0] == board[i][1] &&
         board[i][1] == board[i][2] &&
         board[i][2] == board[i][0]
       ) {
-        return board[i][0]; // returns x or o that won the game
+        return { keepPlaying: false, winner: board[i][0] }; // returns x or o that won the game
       }
     }
-  
+
     // checking diagonal
     if ((board[0][0] == board[1][1]) == board[2][2]) {
-      return board[1][1];
+      return { keepPlaying: false, winner: board[1][1] };
     }
     if ((board[2][0] == board[1][1]) == board[2][0]) {
-      return board[1][1];
+      return { keepPlaying: false, winner: board[1][1] };
+    }
+    if (checkTie(board)) {
+      return { keepPlaying: false, winner: "tie" };
     } else {
-      return "tie";
+      return { keepPlaying: true, winner: null };
     }
   }
-  
-  return{
+
+  return {
     board,
     Player,
-    checkWinner
-  }
+    checkWinner,
+  };
 }
 
 (function game() {
-    // TODO: make loop with a break condition that 
-    // loop should alternates between player1 and player2 objects
-    board = gameBoard();
-    const playerO = board.Player("O",board.board);
-    const playerX = board.Player("X",board.board);
+  // TODO: make loop with a break condition that
+  // loop should alternates between player1 and player2 objects
+  board = gameBoard();
+  const playerO = board.Player("O", board.board);
+  const playerX = board.Player("X", board.board);
 
-    const PlayerList = [playerX,playerO];
+  const PlayerList = [playerX, playerO];
 
-    for (let index = 0; index < 9; index++) {
-        index = index%2; // alternates between 0 and 1
-        console.log(`index right now is ${index}`);
-        const currentPlayer = PlayerList[index];
-        console.log(board.board);
-        console.log(`its ${currentPlayer.option}'s turn`);
-        xCoordinate = prompt(`X coordinate for ${currentPlayer.option} please`);
-        yCoordinate = prompt(`Y coordinate for ${currentPlayer.option} please`);
-        currentPlayer.select(xCoordinate,yCoordinate);
+  for (let index = 0; index < 9; index++) {
+    index = index % 2; // alternates between 0 and 1
+    console.log(`index right now is ${index}`);
+    const currentPlayer = PlayerList[index];
+    console.log(board.board);
+    console.log(`its ${currentPlayer.option}'s turn`);
+    xCoordinate = prompt(`X coordinate for ${currentPlayer.option} please`);
+    yCoordinate = prompt(`Y coordinate for ${currentPlayer.option} please`);
+    currentPlayer.select(xCoordinate, yCoordinate);
 
-        //break conditions: 
-        // board is filled or winner is declared 
-        console.log(`new index is ${index}`);
-        
-    }
-
+    //break conditions:
+    // board is filled or winner is declared
+    console.log(`new index is ${index}`);
+  }
 })();
