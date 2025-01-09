@@ -108,5 +108,20 @@ function gameBoard() {
     //break conditions:
     // board is filled or winner is declared
     console.log(`new index is ${index}`);
+
+    const win = checkWinner(board.board);
+    if(win.keepPlaying){
+      continue;
+    }else{
+      console.log(`GAME OVER!!!`);
+      if(win.winner=="tie"){
+        console.log(`THE MATCH ENDS IN A TIE`);
+      }
+      else{
+        console.log(`THE WINNER IS ${win.winner} `);
+      }
+      break
+    }
+
   }
 })();
