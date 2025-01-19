@@ -21,7 +21,7 @@ You can play the game [here](https://mayanksharma-1.github.io/tic-tac-toe/).
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/tic-tac-toe.git
+   git clone git@github.com:mayanksharma-1/tic-tac-toe.git
    ```
 
 2. Navigate to the project directory:
