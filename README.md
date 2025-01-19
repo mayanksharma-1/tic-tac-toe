@@ -9,6 +9,14 @@ A simple Tic Tac Toe game implemented using HTML, CSS, and JavaScript.
 - Displays the winner or if the game ends in a tie
 - Responsive design
 
+## Live Demo
+
+You can play the game [here](https://mayanksharma-1.github.io/tic-tac-toe/).
+
+## Screenshot
+
+![Tic Tac Toe](https://i.gyazo.com/7bd67eb414eb23f5a7e4e04e12b8e000.png)
+
 ## Setup
 
 1. Clone the repository:
