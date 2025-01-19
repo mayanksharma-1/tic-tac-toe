@@ -93,12 +93,17 @@ function game() {
   const playerX = board.Player("X", board.board);
   const PlayerList = [playerX, playerO];
   let currentPlayerIndex = 0;
+  let gameOver = false;
 
   let boxes = document.querySelectorAll(".box");
   boxes.forEach((box) => {
     box.addEventListener("click", (e) => {
-      xCoordinate = parseInt(e.target.getAttribute("data-x-index")) -1 ;
-      yCoordinate = parseInt(e.target.getAttribute("data-y-index")) -1 ;
+      if (gameOver) {
+        return;
+      }
+
+      xCoordinate = parseInt(e.target.getAttribute("data-x-index")) - 1;
+      yCoordinate = parseInt(e.target.getAttribute("data-y-index")) - 1;
       console.log(xCoordinate, yCoordinate);
       const currentPlayer = PlayerList[currentPlayerIndex];
 
@@ -107,6 +112,7 @@ function game() {
         currentPlayerIndex = (currentPlayerIndex + 1) % 2;
         const win = board.checkWinner(board.board);
         if (!win.keepPlaying) {
+          gameOver = true;
           alert(`GAME OVER!!!`);
           if (win.winner === "tie") {
             alert(`THE MATCH ENDS IN A TIE`);
@@ -122,4 +128,3 @@ function game() {
 document.addEventListener("DOMContentLoaded", () => {
   game();
 });
-
