@@ -87,39 +87,39 @@ function gameBoard() {
   };
 }
 
-(function game() {
+function game() {
   const board = gameBoard();
   const playerO = board.Player("O", board.board);
   const playerX = board.Player("X", board.board);
   const PlayerList = [playerX, playerO];
+  let currentPlayerIndex = 0;
 
-  for (let index = 0; index < 9; index++) {
-    index = index % 2;
-    const currentPlayer = PlayerList[index];
-    console.log(`its ${currentPlayer.option}'s turn`);
+  let boxes = document.querySelectorAll(".box");
+  boxes.forEach((box) => {
+    box.addEventListener("click", (e) => {
+      xCoordinate = parseInt(e.target.getAttribute("data-x-index")) -1 ;
+      yCoordinate = parseInt(e.target.getAttribute("data-y-index")) -1 ;
+      console.log(xCoordinate, yCoordinate);
+      const currentPlayer = PlayerList[currentPlayerIndex];
 
-    let validMove = false;
-    while (!validMove) {
-      const xCoordinate = parseInt(
-        prompt(`X coordinate for ${currentPlayer.option} please (0-2)`)
-      );
-      const yCoordinate = parseInt(
-        prompt(`Y coordinate for ${currentPlayer.option} please (0-2)`)
-      );
-      validMove = currentPlayer.select(xCoordinate, yCoordinate);
-    }
-
-    console.log(board.board);
-
-    const win = board.checkWinner(board.board);
-    if (!win.keepPlaying) {
-      console.log(`GAME OVER!!!`);
-      if (win.winner === "tie") {
-        console.log(`THE MATCH ENDS IN A TIE`);
-      } else {
-        console.log(`THE WINNER IS ${win.winner} `);
+      if (currentPlayer.select(xCoordinate, yCoordinate)) {
+        e.target.innerHTML = currentPlayer.option;
+        currentPlayerIndex = (currentPlayerIndex + 1) % 2;
+        const win = board.checkWinner(board.board);
+        if (!win.keepPlaying) {
+          alert(`GAME OVER!!!`);
+          if (win.winner === "tie") {
+            alert(`THE MATCH ENDS IN A TIE`);
+          } else {
+            alert(`THE WINNER IS ${win.winner} `);
+          }
+        }
       }
-      break;
-    }
-  }
-})();
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  game();
+});
+
